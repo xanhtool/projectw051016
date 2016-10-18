@@ -1,0 +1,101 @@
+<!-- header -->
+<header id="site-header">
+
+  <div class="topbar">
+    <!-- logo -->
+    <div class="logo">
+      <a id="logo-content" href="#" class ="masked"  (click)="filterCategory()" >
+        <!-- <img src="" alt="logo"> -->
+        NóiYêuThương
+      </a>
+    </div>
+
+    <!-- search bar -->
+    <div id="top-search-bar">
+      <input type="text" id="term" name="term" placeholder="Search" (keyup)="searchNote(term)" [(ngModel)]="term">
+    </div>
+
+    <!-- main navigation -->
+    <nav id="main-navigation">
+      <ul>
+        <li><a href=""><img src="../assets/img/hash.svg" alt=""></a></li>
+        <li><a href=""><img src="../assets/img/heart.svg" alt=""></a></li>
+        <!-- <li><a href="#">Đăng Nhập</a></li>
+        <li><a href="#">Đăng Ký</a></li> -->
+      </ul>
+    </nav>
+  </div>
+
+  <!-- filter section -->
+  <section class="filter">
+  <div class="filter-list-button">
+    <!-- <a><input type ="button" value="#5 ngày cho mãi mãi"></a>
+    <a><input type ="button" value="nói yêu thương"></a>
+    <a><input type ="button" value="nói cảm ơn"></a>
+    <a><input type ="button" value="nói xin lỗi"></a> -->
+
+    <a (click)="filterCategory('forever')" >#5 ngày cho mãi mãi</a>
+    <a (click)="filterCategory('love')" >nói yêu thương</a>
+    <a (click)="filterCategory('thank')" >nói cảm ơn</a>
+    <a (click)="filterCategory('sorry')" >nói xin lỗi</a>
+
+  </div>
+  </section>
+
+</header>
+
+<!-- main -->
+
+
+
+  <!-- hero section -->
+  <section class="hero">
+    <div class="hero-content"></div>
+  </section>
+
+  <!-- notes section -->
+
+  <section class="notes">
+    <masonry class="grid-view" [options]="myOptions">
+           <masonry-brick   class="brick" *ngFor="let brick of bricks" >
+              <div [ngClass]="{
+                forever: brick.noteType == 'forever',
+                love: brick.noteType == 'love',
+                thank: brick.noteType == 'thank',
+                sorry: brick.noteType == 'sorry'
+              }"
+              >
+                 <h3>{{brick.id}}</h3>
+              </div>
+
+               <p>
+                 {{brick.content}}
+               </p>
+               <div class="address">
+                 <p>
+                   Từ: <span>{{brick.from}}</span><br>
+                   Tới: <span>{{brick.to}}</span>
+               </p>
+               </div>
+               <div class="status">
+                 <div class="left" [ngSwitch]="value">
+                   <a ><img [class.loved]="brick.isLoved" (click)= "changeLoveCount(brick)" style src="../assets/img/icon heart small.png" alt="Thích"></a>
+                   <span>{{brick.loveCount}}</span>
+                 </div>
+                 <div class="right">
+                   <a id="social" href="#" (click)= "changeShareCount(brick)" >Shares</a>
+                   <span>{{brick.shareCount}}</span>
+                 </div>
+               </div>
+           </masonry-brick>
+     </masonry>
+  </section>
+
+
+<!-- footer -->
+<footer id="footer">
+  <!-- <img src="" alt="noiyeuthuong"> -->
+  <span>Nói Yêu Thương Website &trade; <br>Coppyright &copy; {{year}}</span>
+  <br>
+  <span>Created by <a href="https://xanhtool.github.io/">XanhTool Technologies &trade;</a> </span>
+</footer>
