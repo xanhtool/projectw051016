@@ -1,6 +1,6 @@
 import { Component , OnInit } from '@angular/core';
 
-import { EmitterService } from './shared/services/emitter.service';
+import { EmitterService, Term } from './shared/services/emitter.service';
 
 
 @Component({
@@ -10,9 +10,10 @@ import { EmitterService } from './shared/services/emitter.service';
 })
 export class AppComponent{
     title:string = 'app works!';
-    demo(){
-      EmitterService.get('term').emit(this.title);
+    constructor(private emitterService: EmitterService) {}
+    termObject: Term = { term:''};
+    searchNote() {
+      this.emitterService.setTerm(this.termObject);
     }
-
 
 }

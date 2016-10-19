@@ -1,6 +1,6 @@
 import { Component, OnInit ,ViewEncapsulation, Input } from '@angular/core';
 
-import { EmitterService } from '../shared/services/emitter.service';
+import { EmitterService, Term } from '../shared/services/emitter.service';
 import { BrickService } from '../shared/services/brick.service';
 import { Brick } from '../shared/models/brick';
 import { MasonryOptions } from 'angular2-masonry';
@@ -19,19 +19,23 @@ export class NoteComponent implements OnInit {
   year = (new Date()).getFullYear();
 
     bricks: Brick[];
-
+    TermObject: Term;
   constructor(
-    private service: BrickService
-  ) { }
-
-  title:string;
-  
-  ngOnInit() {
-    this.service.getBricks().then( (bricks)   => this.bricks = bricks);
-     EmitterService.get('term').subscribe((title:string) => {this.title = title})
+    private service: BrickService,
+    private emitterService: EmitterService
+  ) {
+      this.emitterService.getTerm().subscribe(TermObject => {
+      // console.info('Receiving term string from Component B: ' + TermObject.term);
+      this.TermObject = TermObject;
+      this.searchNote(TermObject.term);
+      });
   }
 
-  // title: string = 'hello world';
+  title:string;
+
+  ngOnInit() {
+    this.service.getBricks().then( (bricks)   => this.bricks = bricks);
+  }
 
 
   // for mansory style
