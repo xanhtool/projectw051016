@@ -155,18 +155,21 @@ header #top-search-bar:-moz-placeholder { /* Firefox 18- */
 
 }
 
-.filter-list-button a{
-  display: inline-block;
-  text-decoration: none;
 
-}
 
 .filter-list-button a {
+  display: inline-block;
+  text-decoration: none;
   margin: 10px 0 20px 20px;
   font-family: 'MyriadPro-Cond';
   font-size: 28px;
   transition: 0.3s ease all;
+  cursor: pointer;
   /*transform: translateY(-4px);*/
+}
+
+.filter-list-button a:hover{
+transform: scale(1.5);
 }
 
 .filter-list-button a:nth-child(1) {

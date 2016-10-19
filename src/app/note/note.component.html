@@ -48,3 +48,9 @@
            </masonry-brick>
      </masonry>
   </section>
+
+  <ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{item.body}}
+  </li>
+</ul>

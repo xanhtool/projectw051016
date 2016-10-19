@@ -4,7 +4,8 @@ import { EmitterService, Term } from '../shared/services/emitter.service';
 import { BrickService } from '../shared/services/brick.service';
 import { Brick } from '../shared/models/brick';
 import { MasonryOptions } from 'angular2-masonry';
-
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { FirebaseService } from '../shared/services/firebase.service';
 
 @Component({
   selector: 'app-note',
@@ -20,21 +21,36 @@ export class NoteComponent implements OnInit {
 
     bricks: Brick[];
     TermObject: Term;
+    items: FirebaseListObservable<any[]>;
   constructor(
     private service: BrickService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private af: AngularFire,
+    private firebaseService: FirebaseService
   ) {
+      // emmiter transfer term from search bar
       this.emitterService.getTerm().subscribe(TermObject => {
       // console.info('Receiving term string from Component B: ' + TermObject.term);
       this.TermObject = TermObject;
-      this.searchNote(TermObject.term);
-      });
+      // this.searchNote(TermObject.term);
+      this.filterCategory(TermObject.category);
+    });
+      // firebase part
+      af.auth.login({ email: 'hiepxanh@gmail.com', password: 'developer' });
+      this.items = af.database.list('items');
+
   }
+
+
 
   title:string;
 
   ngOnInit() {
-    this.service.getBricks().then( (bricks)   => this.bricks = bricks);
+    // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
+    this.firebaseService.getNotes().subscribe( notes => {
+      this.bricks = notes;
+      console.log(this.bricks)
+    })
   }
 
 
@@ -77,22 +93,27 @@ export class NoteComponent implements OnInit {
 
 
      filterCategory(category) {
-       this.service.getBricks(category).then( bricks =>
-       {
-         this.bricks = bricks;
-       });
+      //  this.service.getBricks(category).then( bricks =>
+      //  {
+      //    this.bricks = bricks;
+      //  });
+
+       this.firebaseService.getNotes(category).subscribe( notes => {
+         this.bricks = notes;
+         console.log(this.bricks)
+       })
      }
 
 
 
-     searchNote(term) {
-       term = term.toString().toLowerCase().trim();
-       console.log(term)
-       this.service.searchBricks(term).then( (bricks)   =>{
-         console.log(bricks);
-          return this.bricks = bricks;
-       });
-     }
+    //  searchNote(term) {
+    //    term = term.toString().toLowerCase().trim();
+    //    console.log(term)
+    //    this.service.searchBricks(term).then( (bricks)   =>{
+    //      console.log(bricks);
+    //       return this.bricks = bricks;
+    //    });
+    //  }
 
 
 }

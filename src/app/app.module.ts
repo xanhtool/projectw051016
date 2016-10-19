@@ -15,6 +15,22 @@ import { NotFoundComponent } from './shared/pages/not-found/not-found.component'
 import { AboutUsComponent } from './shared/pages/about-us/about-us.component';
 import { NoteModule } from './note/note.module';
 
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { FirebaseService } from './shared/services/firebase.service';
+
+// Must export the config
+export const firebaseConfig = {
+  apiKey: 'AIzaSyDzZQzaFFtXEUuQZoFA88L03Ue8zsEPn1g',
+  authDomain: 'projectw051016.firebaseapp.com',
+  databaseURL: 'https://projectw051016.firebaseio.com',
+  storageBucket: ''
+};
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,11 +43,13 @@ import { NoteModule } from './note/note.module';
     HttpModule,
     MasonryModule,
     Projectw051016RoutingModule,
-    NoteModule
+    NoteModule,
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   providers: [
     BrickService,
-    EmitterService
+    EmitterService,
+    FirebaseService
   ],
   bootstrap: [AppComponent]
 })
