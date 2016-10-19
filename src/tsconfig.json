@@ -13,5 +13,13 @@
     "typeRoots": [
       "../node_modules/@types"
     ]
-  }
+  },
+  "exclude": [
+       "../node_modules",
+       "../typings/browser",
+       "../typings/browser.d.ts"
+   ],
+   "atom": {
+        "rewriteTsconfig": false
+    }
 }

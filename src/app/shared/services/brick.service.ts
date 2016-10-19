@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Brick } from './brick.ts'
+import { Brick } from '../models/brick'
 
 const bricksPromise: Promise<Brick[]> = Promise.resolve (
   [
