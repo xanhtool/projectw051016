@@ -7,6 +7,7 @@ import { MasonryModule } from 'angular2-masonry';
 
 import { BrickService } from './shared/services/brick.service';
 import { EmitterService } from './shared/services/emitter.service';
+import { EventEmitterService } from './shared/services/eventEmitter.service'
 
 
 import { AppComponent } from './app.component';
@@ -49,6 +50,7 @@ const myFirebaseAuthConfig = {
   providers: [
     BrickService,
     EmitterService,
+    EventEmitterService,
     FirebaseService
   ],
   bootstrap: [AppComponent]

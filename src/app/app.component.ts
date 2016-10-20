@@ -1,6 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 
 import { EmitterService, Term } from './shared/services/emitter.service';
+import { EventEmitterService } from  './shared/services/eventEmitter.service';
 
 
 @Component({
@@ -11,11 +12,15 @@ import { EmitterService, Term } from './shared/services/emitter.service';
 export class AppComponent{
     title:string = 'app works!';
 
-    constructor(private emitterService: EmitterService) {}
+    constructor(
+      private emitterService: EmitterService,
+      private eventEmitterService: EventEmitterService
+    ) {}
 
-    termObject: Term = { term:'', category: null};
+    termObject: Term = { term: '', category: null};
     searchNote() {
       this.emitterService.setTerm(this.termObject);
+      // this.eventEmitterService.get(this.termObject.term).emit(this.termObject.term);
     }
 
     filterCategory(typeNote) {
