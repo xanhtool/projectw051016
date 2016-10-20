@@ -4,7 +4,7 @@ import { EmitterService, Term } from '../shared/services/emitter.service';
 import { BrickService } from '../shared/services/brick.service';
 import { Brick } from '../shared/models/brick';
 import { MasonryOptions } from 'angular2-masonry';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { FirebaseService } from '../shared/services/firebase.service';
 
 @Component({
@@ -28,22 +28,46 @@ export class NoteComponent implements OnInit {
     private af: AngularFire,
     private firebaseService: FirebaseService
   ) {
-      // emmiter transfer term from search bar
+    // firebase part
+    // Email and password
+    af.auth.login({
+      email: 'hiepsieuviet@hotmail.com',
+      password: 'developer',
+    },
+    {
+      provider: AuthProviders.Password,
+      method: AuthMethods.Password,
+    });
+
+
+
+    this.items = af.database.list('items');
+
+
+      // emmiter transfer from PARENT
       this.emitterService.getTerm().subscribe(TermObject => {
 
         // emmiter transfer term string
       this.TermObject = TermObject;
-      // console.log(TermObject.term);
-      // this.searchNote(TermObject.term);
+      console.log("Term insert from keyboard: |" + TermObject.term);
+      console.log("Category insert from keyboard: |" + TermObject.category);
 
-      // emmiter transfer category
-      console.info(TermObject.category);
-      this.filterCategory(TermObject.category);
 
+      // if user clear typing then we fetch all data
+      if (TermObject.term == '' && TermObject.category == null) {
+        console.info('only doing refeshing.....');
+        this.filterCategory('refesh');
+      } else if ( TermObject.term != '' && TermObject.category == null ) {
+        console.info('doing filtering by term: ' + TermObject.category);
+          this.searchNote(TermObject.term);
+      }
+
+      // do filter Category
+      if (TermObject.category != null) {
+        console.info('doing filtering category: ' + TermObject.category);
+        this.filterCategory(TermObject.category);
+      }
     });
-      // firebase part
-      af.auth.login({ email: 'hiepxanh@gmail.com', password: 'developer' });
-      this.items = af.database.list('items');
 
   }
 
@@ -55,7 +79,7 @@ export class NoteComponent implements OnInit {
     // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
     this.firebaseService.getNotes('refesh').subscribe( notes => {
       this.bricks = notes;
-      console.log(this.bricks)
+      console.info('just init the first run!')
     })
   }
 
@@ -103,19 +127,25 @@ export class NoteComponent implements OnInit {
       //  {
       //    this.bricks = bricks;
       //  });
-        if (category == null) {
-          console.info('stop fetching')
-        }else {
+        // if (category == null) {
+        //   console.log('stop fetching')
+        // }else {
           this.firebaseService.getNotes(category).subscribe( notes => {
             this.bricks = notes;
-            console.log(this.bricks)
+            // console.log(this.bricks)
           })
-        }
+        // }
      }
 
 
-
+     noteQueried:any;
      searchNote(term) {
+      this.firebaseService.searchNotes(term).subscribe( notes => {
+        this.noteQueried = notes;
+        this.bricks= this.noteQueried.filter(note => {
+          return note.id.toString().toLowerCase() == term;
+        })
+      });
 
      }
 

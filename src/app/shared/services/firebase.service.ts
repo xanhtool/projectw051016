@@ -11,9 +11,9 @@ export class FirebaseService {
   constructor(private af: AngularFire) {  }
 
   getNotes(noteType:string = null) {
-    console.log(noteType)
+    console.log("action getNotes at firebase Service: " + noteType)
       if (noteType != null && noteType != 'refesh' ) {
-      // console.log('filter by category...')
+      console.log('return by category...')
       this.notes = this.af.database.list('notes',{
         query: {
           orderByChild: 'noteType',
@@ -21,23 +21,18 @@ export class FirebaseService {
         }
       }) as FirebaseListObservable<Note[]>;
     } else if (noteType == 'refesh' ) {
-            console.log('return all...')
+            console.info('return is all...')
       this.notes = this.af.database.list('notes') as FirebaseListObservable<Note[]>;
     } else {
-      console.log('null is NONE !')
+      console.info('return is NONE !')
     }
     return this.notes;
   }
 
-  bricks:any;
   searchNotes(term) {
-    this.bricks = this.af.database.list('notes') as FirebaseListObservable<Note[]>;
-    const promise = this.af.database.list('notes').remove();
-    promise
-    .then(_ => console.log('success'))
-    .catch(err => console.log(err, 'You dont have access!'));
-
-
+    console.log("action searchNotes at firebase Service: " + term)
+    this.notes = this.af.database.list('notes') as FirebaseListObservable<Note[]>;
+    return this.notes;
 }
 
   // getCategories() {

@@ -19,11 +19,13 @@ export class AppComponent{
 
     termObject: Term = { term: '', category: null};
     searchNote() {
+      console.log('searchNote activated with term is: |' + this.termObject.term)
       this.emitterService.setTerm(this.termObject);
       // this.eventEmitterService.get(this.termObject.term).emit(this.termObject.term);
     }
 
     filterCategory(typeNote) {
+      console.log('filterCategory activated with category is: |' + typeNote)
       this.termObject.category = typeNote;
       this.emitterService.setTerm(this.termObject);
     }
