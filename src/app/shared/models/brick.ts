@@ -6,7 +6,7 @@ export class Brick {
   isShared: boolean = false ;
   from: string = 'Không tên';
   to: string = 'Không tên';
-  id: number;
-  author: string;
+  id: string;
+  author: string = '';
   content: string;
 }

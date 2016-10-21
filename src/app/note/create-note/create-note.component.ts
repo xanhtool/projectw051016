@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter , SimpleChange , Input} from '@angular/core';
 import { Brick } from '../../shared/models/brick';
+import { FirebaseService } from '../../shared/services/firebase.service';
+
+
 @Component({
   selector: 'create-note',
   templateUrl: './create-note.component.html',
@@ -18,7 +21,7 @@ export class CreateNoteComponent implements OnInit {
     display: '5 Ngày Cho Mãi Mãi'}
   ]
 
-  constructor() { }
+  constructor(private firebaseService : FirebaseService) { }
 
   ngOnInit() {
     this. active = false ;
@@ -28,10 +31,17 @@ export class CreateNoteComponent implements OnInit {
     newNote = new Brick();
     active: boolean = false ;
 
-    onSubmit() {
+    formData : Brick;
+    onSubmit(formValue:Brick) {
       //show event that the user was created
-      this.newNote = new Brick();
+      // this.newNote = new Brick();
       this.noteCreated.emit({note:this.newNote})
+      console.log("Sending to firebase ...")
+      console.info(this.newNote)
+      // console.info(formValue)
+      // this.formData = formValue;
+      // console.info(  this.formData)
+      this.firebaseService.addNote(this.newNote);
       console.log("Closing form...")
       this.active = false; // disappear component
       // setTimeout (() => this.active= true,0); // call fresh component

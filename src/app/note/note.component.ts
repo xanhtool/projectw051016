@@ -78,7 +78,7 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
     // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
     this.firebaseService.getNotes('refesh').subscribe( notes => {
-      this.bricks = notes;
+      this.bricks = notes.reverse();
       console.info('just init the first run!')
     })
   }
@@ -131,7 +131,8 @@ export class NoteComponent implements OnInit {
         //   console.log('stop fetching')
         // }else {
           this.firebaseService.getNotes(category).subscribe( notes => {
-            this.bricks = notes;
+            // console.log(notes)
+            this.bricks = notes.reverse();
             // console.log(this.bricks)
           })
         // }

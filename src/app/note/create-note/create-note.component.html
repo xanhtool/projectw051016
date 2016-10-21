@@ -1,5 +1,5 @@
 {{diagnostic}}
-<form #form="ngForm" (ngSubmit)="onSubmit()" *ngIf="active">
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)" *ngIf="active">
 
     {{form.valid}}
 

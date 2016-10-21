@@ -41,6 +41,7 @@ export class FirebaseService {
   // }
 
   addNote(newNote) {
+    console.info(newNote)
     const items = this.af.database.list('notes');
     return items.push(newNote);
   }
@@ -65,7 +66,7 @@ export interface Note {
   isShared: boolean;
   from: string;
   to: string;
-  id: number;
+  id: string;
   author: string;
   content: string;
 }
