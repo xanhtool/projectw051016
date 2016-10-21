@@ -7,6 +7,18 @@ import { MasonryOptions } from 'angular2-masonry';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { FirebaseService } from '../shared/services/firebase.service';
 
+export interface FirebaseAuthState {
+  uid: string;
+  provider: AuthProviders;
+  auth: firebase.User;
+  expires?: number;
+  github?: firebase.UserInfo;
+  google?: firebase.UserInfo;
+  twitter?: firebase.UserInfo;
+  facebook?: firebase.UserInfo;
+  anonymous?: boolean;
+}
+
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
@@ -18,7 +30,8 @@ export class NoteComponent implements OnInit {
   // date = new Date();
   // year = this.date.getFullYear();
   year = (new Date()).getFullYear();
-
+    authState;
+    currentUser;
     bricks: Brick[];
     TermObject: Term;
     items: FirebaseListObservable<any[]>;
@@ -39,7 +52,14 @@ export class NoteComponent implements OnInit {
       method: AuthMethods.Password,
     });
 
-
+    this.authState = af.auth.getAuth();
+     af.auth.subscribe((state: FirebaseAuthState) => {
+         this.authState = state;
+         console.log(this.authState)
+         this.currentUser = state.uid;
+     });
+    // see authentication status
+    this.af.auth.subscribe(auth => console.log(auth));
 
     this.items = af.database.list('items');
 
@@ -147,12 +167,11 @@ export class NoteComponent implements OnInit {
       });
      }
 
-     onUserCreated(event) {
-      // this.users.push(event.user);
-      // firebase save user
-      console.info('calling firebase to save')
-    }
-    eventCreateForm;
+     deleteNote(key:string) {
+       this.firebaseService.deleteNote(key)
+     }
+
+     eventCreateForm;
     createForm(event) {
       // console.log(event)
       this.eventCreateForm = event

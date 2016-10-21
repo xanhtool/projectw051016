@@ -9,7 +9,7 @@
     <div class="hero-content">
       <!-- <h1>{{title}}</h1> -->
       <a (click)="createForm($event) ">Tạo Lời Nhắn</a>
-      <a  (click)="createForm()">Trở Thành Thiên Thần</a>
+      <a  (click)="becomeAngel()">Trở Thành Thiên Thần</a>
     </div>
   </section>
   <section>
@@ -30,6 +30,7 @@
               }"
               >
                  <h3>{{brick.id}}</h3>
+                 <button (click)="deleteNote(brick.$key)" *ngIf="brick.author == currentUser">Xóa</button>
               </div>
 
                <p>

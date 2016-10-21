@@ -1,7 +1,19 @@
 import { Component, OnInit, Output, EventEmitter , SimpleChange , Input} from '@angular/core';
 import { Brick } from '../../shared/models/brick';
 import { FirebaseService } from '../../shared/services/firebase.service';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
+export interface FirebaseAuthState {
+  uid: string;
+  provider: AuthProviders;
+  auth: firebase.User;
+  expires?: number;
+  github?: firebase.UserInfo;
+  google?: firebase.UserInfo;
+  twitter?: firebase.UserInfo;
+  facebook?: firebase.UserInfo;
+  anonymous?: boolean;
+}
 
 @Component({
   selector: 'create-note',
@@ -21,7 +33,12 @@ export class CreateNoteComponent implements OnInit {
     display: '5 Ngày Cho Mãi Mãi'}
   ]
 
-  constructor(private firebaseService : FirebaseService) { }
+  constructor(
+    private firebaseService : FirebaseService,
+    private af: AngularFire
+  )  {
+    this.af.auth.subscribe(auth => this.newNote.author = auth.uid);
+  }
 
   ngOnInit() {
     this. active = false ;
