@@ -47,6 +47,9 @@ export class FirebaseService {
   }
 
   updateNote(key, updatedNote) {
+    // console.log("at service")
+    // console.log(key)
+    // console.log(updatedNote)
     const items = this.af.database.list('notes');
     return items.update(key,updatedNote);
   }
@@ -59,6 +62,7 @@ export class FirebaseService {
 
 
 export interface Note {
+  $key?: string; // ? is optional
   noteType: string;
   loveCount: number;
   isLoved: boolean;

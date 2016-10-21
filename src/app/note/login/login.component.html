@@ -1,0 +1,17 @@
+<div *ngIf="af.auth | async">You are logged in</div>
+<div *ngIf="!(af.auth | async)">Please log in</div>
+<button mdl-button--raised (click)="loginGG()">
+  <img width="30" src="google-logo.png" />Use My Google Account
+</button>
+<button mdl-button--raised (click)="loginFB()">
+  <img width="30" src="google-logo.png" />Use My Facebook Account
+</button>
+<button mdl-button--raised (click)="logout()">
+  Logout
+</button>
+<button mdl-button--raised (click)="showInfo()">
+show info
+</button>
+<div>
+  {{userInfo}}
+</div>

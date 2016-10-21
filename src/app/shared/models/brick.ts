@@ -1,4 +1,5 @@
 export class Brick {
+  $key?: string; // ? is optional
   noteType: string = 'forever';
   loveCount: number = 0;
   isLoved: boolean = false ;

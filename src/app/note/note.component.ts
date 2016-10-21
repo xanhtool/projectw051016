@@ -52,14 +52,14 @@ export class NoteComponent implements OnInit {
       method: AuthMethods.Password,
     });
 
-    this.authState = af.auth.getAuth();
+    // this.authState = af.auth.getAuth();
      af.auth.subscribe((state: FirebaseAuthState) => {
          this.authState = state;
-         console.log(this.authState)
+        //  console.log(this.authState)
          this.currentUser = state.uid;
      });
     // see authentication status
-    this.af.auth.subscribe(auth => console.log(auth));
+    // this.af.auth.subscribe(auth => console.log(auth));
 
     this.items = af.database.list('items');
 
@@ -101,6 +101,8 @@ export class NoteComponent implements OnInit {
       this.bricks = notes.reverse();
       console.info('just init the first run!')
     })
+
+    this.activedKey = null;
   }
 
 
@@ -112,18 +114,16 @@ export class NoteComponent implements OnInit {
   fitWidth: true
   // columnWidth: '.brick-sizer',
 };
-
+   activedKey: string = null;
    changeLoveCount(brick) {
-     if ( !brick.isLoved ) {
-       brick.loveCount += 1;
-       console.log(brick.loveCount);
-       brick.isLoved = !brick.isLoved;
-     } else {
-       brick.loveCount -= 1;
-       brick.isLoved = !brick.isLoved;
-     }
-
-
+    //  using template variable to store $key
+     this.activedKey = brick.$key
+    //  increase love count
+     brick.loveCount += 1
+    //  remove unnecessary key in object
+     delete brick.$key
+     delete brick.$exists
+     this.updateNote(this.activedKey,brick);
    }
 
    changeShareCount(brick) {
@@ -136,7 +136,6 @@ export class NoteComponent implements OnInit {
        brick.isShared = !brick.isShared;
      }
    }
-
 
 
 
@@ -171,10 +170,16 @@ export class NoteComponent implements OnInit {
        this.firebaseService.deleteNote(key)
      }
 
+     updateNote(key:string, updNote) {
+       this.firebaseService.updateNote(key, updNote);
+     }
+
      eventCreateForm;
     createForm(event) {
       // console.log(event)
       this.eventCreateForm = event
     }
+
+    
 
 }

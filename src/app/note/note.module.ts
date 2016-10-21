@@ -7,6 +7,7 @@ import { BrickService } from '../shared/services/brick.service';
 import { MasonryModule } from 'angular2-masonry';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { UpgradeRoleComponent } from './upgrade-role/upgrade-role.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { UpgradeRoleComponent } from './upgrade-role/upgrade-role.component';
     MasonryModule,
     FormsModule
   ],
-  declarations: [NoteComponent, CreateNoteComponent, UpgradeRoleComponent],
+  declarations: [NoteComponent, CreateNoteComponent, UpgradeRoleComponent, LoginComponent],
   providers: [
     BrickService
   ],
