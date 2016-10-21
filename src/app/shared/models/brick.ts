@@ -1,11 +1,11 @@
 export class Brick {
-  noteType: string;
-  loveCount: number;
-  isLoved: boolean;
-  shareCount: number;
-  isShared: boolean;
-  from: string;
-  to: string;
+  noteType: string = 'forever';
+  loveCount: number = 0;
+  isLoved: boolean = false ;
+  shareCount: number = 0;
+  isShared: boolean = false ;
+  from: string = 'Không tên';
+  to: string = 'Không tên';
   id: number;
   author: string;
   content: string;

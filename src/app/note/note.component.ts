@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit ,ViewEncapsulation, Input , EventEmitter, Output} from '@angular/core';
 
 import { EmitterService, Term } from '../shared/services/emitter.service';
 import { BrickService } from '../shared/services/brick.service';
@@ -138,15 +138,23 @@ export class NoteComponent implements OnInit {
      }
 
 
-     noteQueried:any;
      searchNote(term) {
       this.firebaseService.searchNotes(term).subscribe( notes => {
-        this.noteQueried = notes;
-        this.bricks= this.noteQueried.filter(note => {
+        this.bricks= notes.filter(note => {
           return note.id.toString().toLowerCase() == term;
         })
       });
-
      }
+
+     onUserCreated(event) {
+      // this.users.push(event.user);
+      // firebase save user
+      console.info('calling firebase to save')
+    }
+    eventCreateForm;
+    createForm(event) {
+      // console.log(event)
+      this.eventCreateForm = event
+    }
 
 }
