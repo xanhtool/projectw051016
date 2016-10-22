@@ -18,6 +18,7 @@ import { NoteModule } from './note/note.module';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { FirebaseService } from './shared/services/firebase.service';
+import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -38,7 +39,8 @@ const myFirebaseAuthConfig = {
   declarations: [
     AppComponent,
     NotFoundComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NoteDetailComponent
   ],
   imports: [
     BrowserModule,

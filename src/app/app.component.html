@@ -55,6 +55,6 @@
     <span>Nói Yêu Thương Website &trade; <br>Coppyright &copy; {{year}}</span>
     <br>
     <span>Created by <a href="https://xanhtool.github.io/">XanhTool Technologies &trade;</a> </span>
-
-    <p><a routerLink="/about-us"  routerLinkActive="active">about us</a></p>
+    <button (click)="logout()"  *ngIf="af.auth | async">Logout</button>
+    <!-- <p><a routerLink="/about-us"  routerLinkActive="active">about us</a></p> -->
   </footer>

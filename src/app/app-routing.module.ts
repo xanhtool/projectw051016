@@ -4,12 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { NoteComponent } from './note/note.component';
 import { AboutUsComponent } from './shared/pages/about-us/about-us.component';
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
+import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 const routes: Routes = [
   {
      path: '',
-     component: NoteComponent
+     component: NoteComponent,
+     pathMatch: 'full'
    },
+   {
+       path: ':noteid',
+       component: NoteDetailComponent
+     },
    { path: 'about-us', component: AboutUsComponent },
    { path: '**', component: NotFoundComponent }
 ];

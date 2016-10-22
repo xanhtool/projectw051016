@@ -108,6 +108,20 @@
   padding: 20px;
 }
 
+.brick .delete-button {
+  background-color: #f44336;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: absolute;
+  top: 30px;
+  right: 25px;
+}
 
 .item,.brick:hover {
   transform: translateY(-10px);

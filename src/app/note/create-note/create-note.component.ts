@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter , SimpleChange , Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter , SimpleChange , Input, ViewEncapsulation} from '@angular/core';
 import { Brick } from '../../shared/models/brick';
 import { FirebaseService } from '../../shared/services/firebase.service';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
@@ -18,7 +18,8 @@ export interface FirebaseAuthState {
 @Component({
   selector: 'create-note',
   templateUrl: './create-note.component.html',
-  styleUrls: ['./create-note.component.css']
+  styleUrls: ['./create-note.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateNoteComponent implements OnInit {
 
@@ -37,11 +38,15 @@ export class CreateNoteComponent implements OnInit {
     private firebaseService : FirebaseService,
     private af: AngularFire
   )  {
-    this.af.auth.subscribe(auth => this.newNote.author = auth.uid);
+    this.af.auth.subscribe(auth => {
+      if (auth != null) {
+        this.newNote.author = auth.uid
+      }
+    });
   }
 
   ngOnInit() {
-    this. active = false ;
+    this. active = true ;
   }
 
   @Output() noteCreated = new EventEmitter();
@@ -72,7 +77,9 @@ export class CreateNoteComponent implements OnInit {
     // console.log("something is changed")
     // console.log(changes)
     // console.log(this.reciever)
-    console.log("Opening form...")
+    // console.log("Opening form...")
+
+    //open form
     this.active = true;
   }
 

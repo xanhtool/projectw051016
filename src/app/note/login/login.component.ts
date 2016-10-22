@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css','./material.min.css']
+  styleUrls: ['./login.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
   user = {};
@@ -12,16 +13,18 @@ export class LoginComponent implements OnInit {
   constructor(
       public af: AngularFire
   ) {
-        this.af.auth.subscribe(user => {
-        if(user) {
-          // user logged in
-          this.user = user;
-        }
-        else {
-          // user not logged in
-          this.user = {};
-        }
-      });
+      //   this.af.auth.subscribe(user => {
+      //   if (user) {
+      //     // user logged in
+      //     this.user = user;
+      //     // console.info(this.user)
+      //     this.userInfo = JSON.stringify(this.user);
+      //   }
+      //   else {
+      //     // user not logged in
+      //     this.user = null;
+      //   }
+      // });
   }
 
   ngOnInit() {
@@ -45,10 +48,5 @@ export class LoginComponent implements OnInit {
     this.af.auth.logout();
   }
 
-  showInfo() {
-    console.log(this.user)
-    this.userInfo = JSON.stringify(this.user);
-    console.log(this.userInfo)
-  }
 
 }

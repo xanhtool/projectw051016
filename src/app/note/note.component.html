@@ -7,17 +7,20 @@
   <!-- hero section -->
   <section class="hero">
     <div class="hero-content">
-      <!-- <h1>{{title}}</h1> -->
-      <a (click)="createForm($event) ">Tạo Lời Nhắn</a>
-      <a  (click)="becomeAngel()">Trở Thành Thiên Thần</a>
+      <popup-note></popup-note>
+      <popup-angel></popup-angel>
     </div>
   </section>
-  <section>
-    <create-note [reciever]="eventCreateForm"></create-note>
-  </section>
-  <app-login></app-login>
 
-  <!-- notes section -->
+  <!-- section unknow -->
+
+  <!--
+  <section>
+    <button (click)="logout()"  *ngIf="af.auth | async">Logout</button>
+  </section> -->
+
+
+  <!-- notes section-->
 
   <section class="notes">
     <masonry class="grid-view" [options]="myOptions">
@@ -29,8 +32,8 @@
                 sorry: brick.noteType == 'sorry'
               }"
               >
-                 <h3>{{brick.id}}</h3>
-                 <button (click)="deleteNote(brick.$key)" *ngIf="brick.author == currentUser">Xóa</button>
+                 <h3 [routerLink]="['/',brick.$key]">{{brick.id}}</h3>
+                 <button   class="delete-button" (click)="deleteNote(brick.$key)" *ngIf="brick.author == currentUser">Xóa</button>
               </div>
 
                <p>

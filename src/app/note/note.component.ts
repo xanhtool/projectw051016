@@ -1,5 +1,6 @@
 import { Component, OnInit ,ViewEncapsulation, Input , EventEmitter, Output} from '@angular/core';
 
+
 import { EmitterService, Term } from '../shared/services/emitter.service';
 import { BrickService } from '../shared/services/brick.service';
 import { Brick } from '../shared/models/brick';
@@ -30,7 +31,7 @@ export class NoteComponent implements OnInit {
   // date = new Date();
   // year = this.date.getFullYear();
   year = (new Date()).getFullYear();
-    authState;
+    currentState;
     currentUser;
     bricks: Brick[];
     TermObject: Term;
@@ -43,20 +44,27 @@ export class NoteComponent implements OnInit {
   ) {
     // firebase part
     // Email and password
-    af.auth.login({
-      email: 'hiepsieuviet@hotmail.com',
-      password: 'developer',
-    },
-    {
-      provider: AuthProviders.Password,
-      method: AuthMethods.Password,
-    });
+    // af.auth.login({
+    //   email: 'hiepsieuviet@hotmail.com',
+    //   password: 'developer',
+    // },
+    // {
+    //   provider: AuthProviders.Password,
+    //   method: AuthMethods.Password,
+    // });
 
-    // this.authState = af.auth.getAuth();
      af.auth.subscribe((state: FirebaseAuthState) => {
-         this.authState = state;
-        //  console.log(this.authState)
-         this.currentUser = state.uid;
+         this.currentState = state;
+         console.info(this.currentState)
+         if (state) {
+           this.currentUser = state.uid;
+         } else {
+           this.currentUser = null;
+         }
+        // if (state != null) {
+        //   this.currentUser = state.uid;
+        // }
+
      });
     // see authentication status
     // this.af.auth.subscribe(auth => console.log(auth));
@@ -99,7 +107,7 @@ export class NoteComponent implements OnInit {
     // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
     this.firebaseService.getNotes('refesh').subscribe( notes => {
       this.bricks = notes.reverse();
-      console.info('just init the first run!')
+      console.log('just init the first run!')
     })
 
     this.activedKey = null;
@@ -142,19 +150,9 @@ export class NoteComponent implements OnInit {
 
 
      filterCategory(category) {
-      //  this.service.getBricks(category).then( bricks =>
-      //  {
-      //    this.bricks = bricks;
-      //  });
-        // if (category == null) {
-        //   console.log('stop fetching')
-        // }else {
-          this.firebaseService.getNotes(category).subscribe( notes => {
-            // console.log(notes)
-            this.bricks = notes.reverse();
-            // console.log(this.bricks)
-          })
-        // }
+      this.firebaseService.getNotes(category).subscribe( notes => {
+        this.bricks = notes.reverse();
+      })
      }
 
 
@@ -174,12 +172,7 @@ export class NoteComponent implements OnInit {
        this.firebaseService.updateNote(key, updNote);
      }
 
-     eventCreateForm;
-    createForm(event) {
-      // console.log(event)
-      this.eventCreateForm = event
-    }
 
-    
+
 
 }

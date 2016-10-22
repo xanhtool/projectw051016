@@ -21,10 +21,10 @@ export class FirebaseService {
         }
       }) as FirebaseListObservable<Note[]>;
     } else if (noteType == 'refesh' ) {
-            console.info('return is all...')
+            console.log('return is all...')
       this.notes = this.af.database.list('notes') as FirebaseListObservable<Note[]>;
     } else {
-      console.info('return is NONE !')
+      console.log('return is NONE !')
     }
     return this.notes;
   }
@@ -39,6 +39,12 @@ export class FirebaseService {
   //   this.categories = this.af.database.list('categories') as FirebaseListObservable<Category[]>;
   //   return this.categories;
   // }
+  note;
+  getNote(key) {
+    console.log(key)
+    this.note = this.af.database.object('notes/'+key);
+    return this.note;
+  }
 
   addNote(newNote) {
     console.info(newNote)

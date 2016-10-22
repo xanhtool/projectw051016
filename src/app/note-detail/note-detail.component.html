@@ -1,0 +1,33 @@
+<!-- <h1>it work</h1> -->
+<div  class="brick" >
+   <div [ngClass]="{
+     forever: brick.noteType == 'forever',
+     love: brick.noteType == 'love',
+     thank: brick.noteType == 'thank',
+     sorry: brick.noteType == 'sorry'
+   }"
+   >
+      <h3>{{brick.id}}</h3>
+      <button   class="delete-button" (click)="deleteNote(brick.$key)" *ngIf="brick.author == currentUser">Xóa</button>
+   </div>
+
+    <p>
+      {{brick.content}}
+    </p>
+    <div class="address">
+      <p>
+        Từ: <span>{{brick.from}}</span><br>
+        Tới: <span>{{brick.to}}</span>
+    </p>
+    </div>
+    <div class="status">
+      <div class="left" [ngSwitch]="value">
+        <a ><img [class.loved]="brick.isLoved" (click)= "changeLoveCount(brick)" style src="../assets/img/icon heart small.png" alt="Thích"></a>
+        <span>{{brick.loveCount}}</span>
+      </div>
+      <div class="right">
+        <a id="social" href="#" (click)= "changeShareCount(brick)" >Shares</a>
+        <span>{{brick.shareCount}}</span>
+      </div>
+    </div>
+</div>

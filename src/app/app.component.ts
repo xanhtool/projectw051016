@@ -1,4 +1,5 @@
 import { Component , OnInit } from '@angular/core';
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { EmitterService, Term } from './shared/services/emitter.service';
 import { EventEmitterService } from  './shared/services/eventEmitter.service';
@@ -14,7 +15,8 @@ export class AppComponent{
 
     constructor(
       private emitterService: EmitterService,
-      private eventEmitterService: EventEmitterService
+      private eventEmitterService: EventEmitterService,
+      private af: AngularFire,
     ) {}
 
     termObject: Term = { term: '', category: null};
@@ -28,6 +30,10 @@ export class AppComponent{
       console.log('filterCategory activated with category is: |' + typeNote)
       this.termObject.category = typeNote;
       this.emitterService.setTerm(this.termObject);
+    }
+
+    logout() {
+      this.af.auth.logout();
     }
 
 }
