@@ -6,10 +6,7 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
   selector: 'popup-note',
   templateUrl: './popup-note.component.html',
   styleUrls: ['./popup-note.component.css'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-  '(document:click)': 'onClick($event)',
-}
+  encapsulation: ViewEncapsulation.None
 })
 export class PopupNoteComponent implements OnInit {
 

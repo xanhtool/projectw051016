@@ -18,18 +18,21 @@ export class NoteDetailComponent implements OnInit {
   }
   sub:any;
   ngOnInit () {
-     this.sub=this.route.params.subscribe( params => {
-       let id = params['noteid'];
-       console.log(id)
-       console.log(this.route.snapshot.params['noteid'])
-       this.firebaseService.getNote(id).subscribe( note => {
-         return this.brick = note;
-       });
-     })
+    this.noteid = this.route.snapshot.params['noteid'];
+    this.sub = this.firebaseService.getNote(this.noteid).subscribe( note => {
+      return this.brick = note;
+    });
   }
 
   ngOnDestroy() {
     console.log(this.brick)
+    this.sub.unsubscribe();
+  }
+
+
+  backHome() {
+    this.router.navigate(['/']);
+    // window.history.back();
   }
 
 }

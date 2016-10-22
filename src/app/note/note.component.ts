@@ -31,11 +31,12 @@ export class NoteComponent implements OnInit {
   // date = new Date();
   // year = this.date.getFullYear();
   year = (new Date()).getFullYear();
-    currentState;
-    currentUser;
-    bricks: Brick[];
-    TermObject: Term;
-    items: FirebaseListObservable<any[]>;
+  currentState;
+  currentUser;
+  bricks: Brick[];
+  TermObject: Term;
+  items: FirebaseListObservable<any[]>;
+
   constructor(
     private service: BrickService,
     private emitterService: EmitterService,
@@ -61,16 +62,9 @@ export class NoteComponent implements OnInit {
          } else {
            this.currentUser = null;
          }
-        // if (state != null) {
-        //   this.currentUser = state.uid;
-        // }
-
      });
     // see authentication status
     // this.af.auth.subscribe(auth => console.log(auth));
-
-    this.items = af.database.list('items');
-
 
       // emmiter transfer from PARENT
       this.emitterService.getTerm().subscribe(TermObject => {
@@ -106,6 +100,7 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
     // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
     this.firebaseService.getNotes('refesh').subscribe( notes => {
+      console.log(notes)
       this.bricks = notes.reverse();
       console.log('just init the first run!')
     })
@@ -135,14 +130,6 @@ export class NoteComponent implements OnInit {
    }
 
    changeShareCount(brick) {
-     if ( !brick.isShared ) {
-       brick.shareCount += 1;
-       console.log(brick.shareCount);
-       brick.isShared = !brick.isShared;
-     } else {
-       brick.shareCount -= 1;
-       brick.isShared = !brick.isShared;
-     }
    }
 
 
