@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewEncapsulation, Input , EventEmitter, Output} from '@angular/core';
+import { Pipe, Component, OnInit ,ViewEncapsulation, Input , EventEmitter, Output} from '@angular/core';
 
 
 import { EmitterService, Term } from '../shared/services/emitter.service';
@@ -18,6 +18,15 @@ export interface FirebaseAuthState {
   twitter?: firebase.UserInfo;
   facebook?: firebase.UserInfo;
   anonymous?: boolean;
+}
+
+@Pipe({
+  name: 'reverse'
+})
+export class ReversePipe {
+  transform(value) {
+    return value.slice().reverse();
+  }
 }
 
 @Component({
@@ -96,12 +105,14 @@ export class NoteComponent implements OnInit {
 
 
   title:string;
-
+  // notesAsync;
   ngOnInit() {
     // this.service.getBricks().then( (bricks)   => this.bricks = bricks);
+    // this.notesAsync = this.firebaseService.getNotes('refesh');
     this.firebaseService.getNotes('refesh').subscribe( notes => {
       console.log(notes)
       this.bricks = notes.reverse();
+      // this.bricks = notes;
       console.log('just init the first run!')
     })
 
@@ -113,7 +124,7 @@ export class NoteComponent implements OnInit {
   public myOptions: MasonryOptions = {
   transitionDuration: '0.8s',
   itemSelector: '.brick',
-  columnWidth: 180,
+  columnWidth: 70,
   fitWidth: true
   // columnWidth: '.brick-sizer',
 };
@@ -130,6 +141,14 @@ export class NoteComponent implements OnInit {
    }
 
    changeShareCount(brick) {
+     //  using template variable to store $key
+      this.activedKey = brick.$key
+     //  increase love count
+      brick.shareCount += 1
+     //  remove unnecessary key in object
+      delete brick.$key
+      delete brick.$exists
+      this.updateNote(this.activedKey,brick);
    }
 
 
@@ -139,6 +158,7 @@ export class NoteComponent implements OnInit {
      filterCategory(category) {
       this.firebaseService.getNotes(category).subscribe( notes => {
         this.bricks = notes.reverse();
+        // this.bricks = notes
       })
      }
 

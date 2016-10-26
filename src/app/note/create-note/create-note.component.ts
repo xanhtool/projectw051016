@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter , SimpleChange , Input, ViewEnc
 import { Brick } from '../../shared/models/brick';
 import { FirebaseService } from '../../shared/services/firebase.service';
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export interface FirebaseAuthState {
   uid: string;
@@ -36,7 +37,8 @@ export class CreateNoteComponent implements OnInit {
 
   constructor(
     private firebaseService : FirebaseService,
-    private af: AngularFire
+    private af: AngularFire,
+    private router: Router
   )  {
     this.af.auth.subscribe(auth => {
       if (auth != null) {
@@ -65,6 +67,7 @@ export class CreateNoteComponent implements OnInit {
       // console.info(  this.formData)
       this.firebaseService.addNote(this.newNote);
       console.log("Closing form...")
+      this.router.navigate(['/']);
       this.active = false; // disappear component
       // setTimeout (() => this.active= true,0); // call fresh component
     }

@@ -91,7 +91,7 @@ header #main-navigation ul li:nth-child(2) img:hover {
 /*top search bar*/
 header .topbar #top-search-bar {
   display: inline-block;
-  min-width: 72%;
+  min-width: 65%;
   float: left;
   padding-left: 2%;
   transform: translateY(10px);
@@ -214,11 +214,85 @@ transform: scale(1.5);
 
 
 
-
+#footer {
+  background: #4D6684 ;
+  color: #fff;
+  padding: 15px 30px;
+  text-align: center;
+  /*position: fixed;*/
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
 
 #footer a {
   text-decoration: none;
   color: white;
   text-transform: uppercase;
+}
+
+
+
+/*for responsive*/
+@media only screen and (min-width: 400px) {
+  header .topbar #top-search-bar {
+    min-width: 45%;
+  }
+
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+  header .topbar #top-search-bar {
+    min-width: 55%;
+  }
+
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+  header .topbar #top-search-bar {
+    min-width: 65%;
+  }
+
+    .masonry {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+  header .topbar #top-search-bar {
+    min-width: 75%;
+  }
+
+    .masonry {
+        -moz-column-count: 5;
+        -webkit-column-count: 5;
+        column-count: 5;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+  header .topbar #top-search-bar {
+    min-width: 75%;
+  }
+
+  .hero {
+    /*min-height: 520px;*/
+  }
+
+  .wrapper {
+      width: 1260px;
+  }
 }

@@ -22,9 +22,9 @@
    <div class="address">
      <div class="form-group">
          <span>Từ:  </span><input type="text" placeholder="Bạn muốn đề tên người gửi không ?" class="form-control form-from" name="from" #from="ngModel" [(ngModel)]="newNote.from" >
+         <span>Tới:</span> <input type="text" placeholder="Bạn muốn gửi tới ai ?." class="form-control form-to" name="to" #to="ngModel" [(ngModel)]="newNote.to" >
       </div>
       <div class="form-group">
-        <span>Tới:</span> <input type="text" placeholder="Bạn muốn gửi tới ai ?." class="form-control form-to" name="to" #to="ngModel" [(ngModel)]="newNote.to" >
       </div>
 
    </div>
@@ -36,3 +36,7 @@
      </button>
    </div>
 </form>
+
+<div  *ngIf="!active">
+  <h4>Cảm ơn bạn. Lời Nhắn của bạn sẽ sớm được cập nhật trên hệ thống của chúng tôi</h4>
+</div>

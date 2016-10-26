@@ -103,7 +103,7 @@
   box-shadow: 2px 2px 4px 0 #ccc;
   background: #fff;
   /* vertical gutter */
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   transition: 0.3s ease all;
   padding: 20px;
 }
@@ -119,8 +119,8 @@
   display: inline-block;
   font-size: 16px;
   position: absolute;
-  top: 30px;
-  right: 25px;
+  top: 10px;
+  right: 10px;
 }
 
 .item,.brick:hover {
@@ -130,8 +130,9 @@
 
 .brick h3 {
   text-align: center;
-  font-size: 32px;
-  margin: 0;
+  font-size: 30px;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 .brick .forever h3{
@@ -150,6 +151,18 @@
 
 .brick .sorry h3{
   color: #A1D19A;
+}
+
+.brick p {
+  /*show hand*/
+  cursor: pointer;
+  text-align: justify;
+  /*limit line */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 15.1em;
+  line-height: 1.8em;
 }
 
 .brick .address span {
@@ -199,52 +212,4 @@
   color: #fff;
   padding: 15px 30px;
   text-align: center;
-}
-
-
-/*for responsive*/
-@media only screen and (min-width: 400px) {
-    .masonry {
-        -moz-column-count: 2;
-        -webkit-column-count: 2;
-        column-count: 2;
-    }
-}
-
-@media only screen and (min-width: 700px) {
-    .masonry {
-        -moz-column-count: 3;
-        -webkit-column-count: 3;
-        column-count: 3;
-    }
-}
-
-@media only screen and (min-width: 900px) {
-    .masonry {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
-    }
-}
-
-@media only screen and (min-width: 1100px) {
-    .masonry {
-        -moz-column-count: 5;
-        -webkit-column-count: 5;
-        column-count: 5;
-    }
-}
-
-@media only screen and (min-width: 1280px) {
-  header .topbar #top-search-bar {
-    min-width: 75%;
-  }
-
-  .hero {
-    /*min-height: 520px;*/
-  }
-
-  .wrapper {
-      width: 1260px;
-  }
 }

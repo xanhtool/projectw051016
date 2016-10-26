@@ -22,9 +22,10 @@
 
   <!-- notes section-->
 
-  <section class="notes">
+  <section class="notes" *ngIf="bricks">
     <masonry class="grid-view" [options]="myOptions">
-           <masonry-brick   class="brick" *ngFor="let brick of bricks" >
+           <!-- <masonry-brick   class="brick" *ngFor="let brick of notesAsync | async" > -->
+             <masonry-brick   class="brick" *ngFor="let brick of bricks " >
               <div [ngClass]="{
                 forever: brick.noteType == 'forever',
                 love: brick.noteType == 'love',
@@ -36,7 +37,7 @@
                  <button   class="delete-button" (click)="deleteNote(brick.$key)" *ngIf="brick.author == currentUser">Xóa</button>
               </div>
 
-               <p>
+               <p [routerLink]="['/',brick.$key]">
                  {{brick.content}}
                </p>
                <div class="address">
@@ -51,7 +52,17 @@
                    <span>{{brick.loveCount}}</span>
                  </div>
                  <div class="right">
-                   <a id="social" href="#" (click)= "changeShareCount(brick)" >Shares</a>
+                   <a id="social" href="#" (click)= "changeShareCount(brick)" >
+                     <!-- Shares -->
+                     <share-container
+                                          [properties]="{url:'www.hiepxanh.github.io', title:'my title',  description:'my description is hare', img:' an image', via:'Ced_VDB', hashtags:'someHashTag'}"
+                                          direction="horizontal"
+
+                                          [expandable]="false"
+                                          [textEnabled]="true"
+                                          [platforms]="['facebook']">
+                      </share-container>
+                   </a>
                    <span>{{brick.shareCount}}</span>
                  </div>
                </div>

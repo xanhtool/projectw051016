@@ -11,14 +11,16 @@ import { UpgradeRoleComponent } from './upgrade-role/upgrade-role.component';
 import { LoginComponent } from './login/login.component';
 import { PopupNoteComponent } from './popup-note/popup-note.component';
 import { PopupAngelComponent } from './popup-angel/popup-angel.component';
-
+import { CreateFormAngelComponent} from './create-form-angel/create-form-angel.component';
+import { ShareModule } from '../ng2share/share.module'
 
 @NgModule({
   imports: [
     CommonModule,
     MasonryModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ShareModule
   ],
   declarations: [
     NoteComponent,
@@ -26,7 +28,8 @@ import { PopupAngelComponent } from './popup-angel/popup-angel.component';
     UpgradeRoleComponent,
     LoginComponent,
     PopupNoteComponent,
-    PopupAngelComponent
+    PopupAngelComponent,
+    CreateFormAngelComponent
   ],
   providers: [
     BrickService

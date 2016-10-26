@@ -47,11 +47,11 @@
 }
 
 .popup-window {
-  margin: 70px auto;
+  margin: 20px auto;
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 50%;
   position: relative;
   transition: all 5s ease-in-out;
 }
@@ -62,7 +62,7 @@
 }
 
 .popup-window h2 {
-  margin-top: 60px;
+  margin-top: 10px;
   color: #333;
   font-family: Tahoma, Arial, sans-serif;
 }
@@ -71,10 +71,12 @@
   top: 0px;
   right: 0px;
   transition: all 200ms;
-  font-size: 50px;
+  font-size: 20px;
   font-weight: bold;
   text-decoration: none;
   color: #333;
+  margin-right: 0px;
+  padding: 10px 10px;
 }
 .popup-window .close:hover {
   color: #06D85F;

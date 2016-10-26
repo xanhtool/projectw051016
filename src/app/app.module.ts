@@ -7,8 +7,11 @@ import { MasonryModule } from 'angular2-masonry';
 
 import { BrickService } from './shared/services/brick.service';
 import { EmitterService } from './shared/services/emitter.service';
-import { EventEmitterService } from './shared/services/eventEmitter.service'
-
+import { EventEmitterService } from './shared/services/eventEmitter.service';
+import { GoogleDocsService } from './shared/services/googleDocs.service';
+import { DocsService } from './shared/services/docs.service';
+import { GoogleFormService } from './shared/services/google-form.service';
+import { SendEmailService } from './shared/services/send-email.service';
 
 import { AppComponent } from './app.component';
 import {Projectw051016RoutingModule} from './app-routing.module';
@@ -19,6 +22,9 @@ import { NoteModule } from './note/note.module';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { FirebaseService } from './shared/services/firebase.service';
 import { NoteDetailComponent } from './note-detail/note-detail.component';
+import { CeiboShare } from 'ng2-social-share';
+import { ShareModule } from './ng2share/share.module'
+
 
 // Must export the config
 export const firebaseConfig = {
@@ -40,7 +46,8 @@ const myFirebaseAuthConfig = {
     AppComponent,
     NotFoundComponent,
     AboutUsComponent,
-    NoteDetailComponent
+    NoteDetailComponent,
+    CeiboShare
   ],
   imports: [
     BrowserModule,
@@ -49,13 +56,18 @@ const myFirebaseAuthConfig = {
     MasonryModule,
     Projectw051016RoutingModule,
     NoteModule,
+    ShareModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   providers: [
     BrickService,
     EmitterService,
     EventEmitterService,
-    FirebaseService
+    FirebaseService,
+    GoogleDocsService,
+    DocsService,
+    GoogleFormService,
+    SendEmailService
   ],
   bootstrap: [AppComponent]
 })
